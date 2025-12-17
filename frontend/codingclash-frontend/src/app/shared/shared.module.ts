@@ -10,7 +10,7 @@ import { JoinConfirmationComponent } from './components/join-confirmation/join-c
   declarations: [
     NavbarComponent,
     FooterComponent,
-    JoinConfirmationComponent
+    JoinConfirmationComponent   // ✅ MUST BE HERE
   ],
   imports: [
     CommonModule,
@@ -19,7 +19,7 @@ import { JoinConfirmationComponent } from './components/join-confirmation/join-c
   exports: [
     NavbarComponent,
     FooterComponent,
-    JoinConfirmationComponent
+    JoinConfirmationComponent   // ✅ MUST BE HERE
   ]
 })
 export class SharedModule { }

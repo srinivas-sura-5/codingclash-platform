@@ -42,3 +42,11 @@
   Entry fee once deducted is non-refundable.<br />
   This is a skill-based contest.
 </p>
+
+<app-join-confirmation
+  *ngIf="showJoinModal"
+  [contest]="contest"
+  [walletBalance]="walletBalance"
+  (confirmJoin)="confirmJoin()"
+  (cancelJoin)="cancelJoin()">
+</app-join-confirmation>

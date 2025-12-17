@@ -10,6 +10,9 @@ export class ContestDetailsComponent implements OnInit {
 
   contest!: Contest;
   countdown = '';
+  walletBalance = 100;
+
+  showJoinModal = false;
 
   constructor(private contestService: ContestService) {}
 
@@ -20,30 +23,42 @@ export class ContestDetailsComponent implements OnInit {
 
   startCountdown(): void {
     const interval = setInterval(() => {
-      const diff = this.contest.startTime.getTime() - new Date().getTime();
-
+      const diff = this.contest.startTime.getTime() - Date.now();
       if (diff <= 0) {
-        this.countdown = 'LIVE';
         clearInterval(interval);
         return;
       }
-
-      const minutes = Math.floor((diff / 1000 / 60) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-
-      this.countdown = `${minutes}m ${seconds}s`;
+      const m = Math.floor((diff / 1000 / 60) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+      this.countdown = `${m}m ${s}s`;
     }, 1000);
   }
 
-  walletBalance = 40;
-
-openJoinModal(): void {
-  if (this.walletBalance < this.contest.entryFee) {
-    alert('❌ Insufficient Wallet Balance. Please add money.');
-    return;
+  openJoinModal(): void {
+    if (this.contest.state !== 'WAITING') return;
+    this.showJoinModal = true;
   }
 
-  alert('✅ Open Join Confirmation Modal (Phase 8)');
-}
+  cancelJoin(): void {
+    this.showJoinModal = false;
+  }
 
+  confirmJoin(): void {
+    if (this.walletBalance < this.contest.entryFee) {
+      alert('Insufficient wallet balance');
+      return;
+    }
+
+    // Deduct wallet
+    this.walletBalance -= this.contest.entryFee;
+
+    // Add participant
+    this.contest.participants += 1;
+
+    // Update state
+    this.contestService.updateState();
+
+    this.showJoinModal = false;
+    alert('✅ Successfully joined contest');
+  }
 }

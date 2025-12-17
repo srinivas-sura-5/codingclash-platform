@@ -1,17 +1,38 @@
-<div class="modal">
-  <h3>Confirm Contest Join</h3>
+<div class="modal-backdrop">
+  <div class="modal">
 
-  <p><strong>Contest:</strong> Beginner Coding Contest</p>
-  <p><strong>Start:</strong> Today 6:00 PM</p>
-  <p><strong>Entry Fee:</strong> ₹50</p>
-  <p><strong>Wallet Balance:</strong> ₹40</p>
-  <p><strong>Balance After Join:</strong> ❌ Insufficient</p>
+    <h3>Confirm Contest Join</h3>
 
-  <p class="warning">
-    Entry fee once deducted is non-refundable.<br />
-    This is a skill-based contest.
-  </p>
+    <p><strong>Contest:</strong> {{ contest.name }}</p>
+    <p><strong>Start:</strong> {{ contest.startTime | date:'short' }}</p>
+    <p><strong>Entry Fee:</strong> ₹{{ contest.entryFee }}</p>
+    <p><strong>Wallet Balance:</strong> ₹{{ walletBalance }}</p>
 
-  <button class="confirm">Confirm & Join</button>
-  <button class="cancel">Cancel</button>
+    <p *ngIf="balanceAfterJoin >= 0">
+      <strong>Balance After Join:</strong> ₹{{ balanceAfterJoin }}
+    </p>
+
+    <p *ngIf="balanceAfterJoin < 0" class="error">
+      ❌ Insufficient Wallet Balance
+    </p>
+
+    <p class="warning">
+      Entry fee once deducted is non-refundable.<br />
+      This is a skill-based contest.
+    </p>
+
+    <div class="actions">
+      <button
+        class="confirm"
+        [disabled]="balanceAfterJoin < 0"
+        (click)="confirmJoin.emit()">
+        Confirm & Join
+      </button>
+
+      <button class="cancel" (click)="cancelJoin.emit()">
+        Cancel
+      </button>
+    </div>
+
+  </div>
 </div>
