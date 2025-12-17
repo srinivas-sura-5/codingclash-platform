@@ -5,7 +5,6 @@ import { ProfileRoutingModule } from './profile-routing.module';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { HistoryComponent } from './history/history.component';
 
-
 @NgModule({
   declarations: [
     UserProfileComponent,
@@ -16,4 +15,4 @@ import { HistoryComponent } from './history/history.component';
     ProfileRoutingModule
   ]
 })
-export class ProfileModule { }
+export class ProfileModule {}

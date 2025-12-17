@@ -1,1 +1,56 @@
-<p>history works!</p>
+<div class="max-w-4xl mx-auto card">
+
+  <h2 class="text-2xl font-semibold mb-6">
+    Contest History
+  </h2>
+
+  <!-- EMPTY STATE -->
+  <div *ngIf="contests.length === 0"
+       class="text-center text-gray-400 py-10">
+    You have not participated in any contests yet
+  </div>
+
+  <!-- HISTORY TABLE -->
+  <div *ngIf="contests.length > 0" class="overflow-x-auto">
+    <table class="table-base">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Contest</th>
+          <th>Rank</th>
+          <th>Prize</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let c of contests">
+          <td>{{ c.date | date:'short' }}</td>
+          <td>{{ c.contestName }}</td>
+          <td>#{{ c.rank }}</td>
+
+          <td>
+            <span *ngIf="c.prizeWon > 0"
+                  class="text-green-400 font-medium">
+              ₹{{ c.prizeWon }}
+            </span>
+
+            <span *ngIf="c.prizeWon === 0"
+                  class="text-gray-400">
+              —
+            </span>
+          </td>
+
+          <td>
+            <a
+              routerLink="/contests/{{ c.contestId }}/results"
+              class="text-primary hover:underline text-sm">
+              View Results
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

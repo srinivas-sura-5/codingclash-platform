@@ -7,6 +7,7 @@ import { ContestDetailsComponent } from './contest-details/contest-details.compo
 import { ContestRoomComponent } from './contest-room/contest-room.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { SharedModule } from '../shared/shared.module';
+import { ContestResultsComponent } from './contest-results/contest-results.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { SharedModule } from '../shared/shared.module';
     ContestListComponent,
     ContestDetailsComponent,
     LeaderboardComponent,
-    ContestRoomComponent
+    ContestRoomComponent,
+    ContestResultsComponent
   ],
   imports: [
     CommonModule,

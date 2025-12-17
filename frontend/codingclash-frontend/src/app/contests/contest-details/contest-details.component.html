@@ -78,3 +78,10 @@
   (confirmJoin)="confirmJoin()"
   (cancelJoin)="cancelJoin()">
 </app-join-confirmation>
+
+<a *ngIf="contest.state === 'COMPLETED'"
+   routerLink="/contests/1/results"
+   class="btn-primary mt-4 block text-center">
+  View Results
+</a>
+
