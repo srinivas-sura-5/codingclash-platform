@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ContestService } from '../services/contest.service';
 import { Contest } from '../models/contest';
+import { WalletService } from 'src/app/wallet/services/wallet.service';
 
 @Component({
   selector: 'app-contest-details',
@@ -10,11 +11,13 @@ export class ContestDetailsComponent implements OnInit {
 
   contest!: Contest;
   countdown = '';
-  walletBalance = 100;
-
   showJoinModal = false;
 
-  constructor(private contestService: ContestService) {}
+  constructor(
+  private contestService: ContestService,
+  public walletService: WalletService
+) {}
+
 
   ngOnInit(): void {
     this.contest = this.contestService.getContest();
@@ -44,21 +47,21 @@ export class ContestDetailsComponent implements OnInit {
   }
 
   confirmJoin(): void {
-    if (this.walletBalance < this.contest.entryFee) {
-      alert('Insufficient wallet balance');
+
+    const success = this.walletService.deduct(
+      this.contest.entryFee,
+      `Joined contest: ${this.contest.name}`
+    );
+
+    if (!success) {
+      alert('❌ Insufficient Wallet Balance');
       return;
     }
 
-    // Deduct wallet
-    this.walletBalance -= this.contest.entryFee;
-
-    // Add participant
     this.contest.participants += 1;
-
-    // Update state
     this.contestService.updateState();
-
     this.showJoinModal = false;
+
     alert('✅ Successfully joined contest');
   }
 }

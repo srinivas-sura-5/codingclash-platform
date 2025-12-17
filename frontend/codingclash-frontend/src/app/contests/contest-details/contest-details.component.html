@@ -46,7 +46,8 @@
 <app-join-confirmation
   *ngIf="showJoinModal"
   [contest]="contest"
-  [walletBalance]="walletBalance"
+  [walletBalance]="walletService.getBalance()"
   (confirmJoin)="confirmJoin()"
   (cancelJoin)="cancelJoin()">
 </app-join-confirmation>
+
