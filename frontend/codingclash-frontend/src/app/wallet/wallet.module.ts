@@ -6,7 +6,6 @@ import { WalletDashboardComponent } from './wallet-dashboard/wallet-dashboard.co
 import { AddMoneyComponent } from './add-money/add-money.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 
-
 @NgModule({
   declarations: [
     WalletDashboardComponent,
@@ -18,4 +17,4 @@ import { TransactionsComponent } from './transactions/transactions.component';
     WalletRoutingModule
   ]
 })
-export class WalletModule { }
+export class WalletModule {}

@@ -4,11 +4,13 @@ import { RouterModule } from '@angular/router';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { JoinConfirmationComponent } from './components/join-confirmation/join-confirmation.component';
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    JoinConfirmationComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +18,8 @@ import { FooterComponent } from './components/footer/footer.component';
   ],
   exports: [
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    JoinConfirmationComponent
   ]
 })
 export class SharedModule { }
