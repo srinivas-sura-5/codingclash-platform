@@ -1,21 +1,55 @@
-<h2>Add Money to Wallet</h2>
+<div class="max-w-md mx-auto card">
 
-<p><strong>Phase 1:</strong> Manual UPI Payment</p>
+  <h2 class="text-2xl font-semibold mb-4 text-center">
+    Add Money to Wallet
+  </h2>
 
-<ul>
-  <li>UPI ID: <strong>codingclash@upi</strong></li>
-  <li>Pay required amount</li>
-  <li>Upload payment screenshot</li>
-  <li>Admin will verify and credit wallet</li>
-</ul>
+  <!-- INFO -->
+  <div class="text-sm text-gray-400 mb-6">
+    <p class="mb-1">
+      <strong class="text-white">Phase 1:</strong> Manual UPI Payment
+    </p>
 
-<form>
-  <label>Amount</label>
-  <input type="number" placeholder="Enter amount" />
+    <ul class="list-disc list-inside space-y-1">
+      <li>
+        UPI ID:
+        <strong class="text-primary">codingclash@upi</strong>
+      </li>
+      <li>Pay the required amount</li>
+      <li>Upload payment screenshot</li>
+      <li>Admin will verify and credit your wallet</li>
+    </ul>
+  </div>
 
-  <label>Payment Screenshot</label>
-  <input type="file" />
+  <!-- FORM -->
+  <form class="space-y-4">
 
-  <button type="button" (click)="submit()">Submit for Verification</button>
+    <div>
+      <label class="block text-sm mb-1 text-gray-400">
+        Amount
+      </label>
+      <input
+        class="input"
+        type="number"
+        placeholder="Enter amount" />
+    </div>
 
-</form>
+    <div>
+      <label class="block text-sm mb-1 text-gray-400">
+        Payment Screenshot
+      </label>
+      <input
+        class="input"
+        type="file" />
+    </div>
+
+    <button
+      type="button"
+      class="btn-primary w-full"
+      (click)="submit()">
+      Submit for Verification
+    </button>
+
+  </form>
+
+</div>

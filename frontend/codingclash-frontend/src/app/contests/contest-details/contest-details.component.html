@@ -1,48 +1,76 @@
-<h2>{{ contest.name }}</h2>
+<div class="card max-w-2xl mx-auto">
 
-<p><strong>Status:</strong> {{ contest.state }}</p>
-<p><strong>Entry Fee:</strong> ₹{{ contest.entryFee }}</p>
-<p><strong>Prize Pool:</strong> ₹{{ contest.prizePool }}</p>
+  <!-- HEADER -->
+  <h2 class="text-2xl font-semibold mb-4">
+    {{ contest.name }}
+  </h2>
 
-<hr />
+  <!-- BASIC INFO -->
+  <div class="grid grid-cols-2 gap-4 text-sm text-gray-400 mb-4">
+    <p><strong>Status:</strong> {{ contest.state }}</p>
+    <p><strong>Entry Fee:</strong> ₹{{ contest.entryFee }}</p>
+    <p><strong>Prize Pool:</strong> ₹{{ contest.prizePool }}</p>
+  </div>
 
-<!-- UPCOMING / WAITING -->
-<div *ngIf="contest.state === 'WAITING'">
-  <p>⏳ Waiting for minimum participants</p>
-  <p><strong>Rule:</strong> Minimum 10 participants required</p>
-  <p>Invite friends to start contest</p>
-</div>
+  <hr class="border-border my-4" />
 
-<!-- LOCKED -->
-<div *ngIf="contest.state === 'LOCKED'">
-  <p>🔒 Contest locked</p>
-  <p>Contest will start in 10 minutes</p>
-</div>
+  <!-- UPCOMING / WAITING -->
+  <div *ngIf="contest.state === 'WAITING'" class="mb-4">
+    <p class="text-yellow-400 font-medium">
+      ⏳ Waiting for minimum participants
+    </p>
+    <p class="text-sm text-gray-400 mt-1">
+      Minimum <strong>10 participants</strong> required
+    </p>
+    <p class="text-sm text-gray-400">
+      Invite friends to start the contest
+    </p>
+  </div>
 
-<!-- LIVE -->
-<div *ngIf="contest.state === 'LIVE'">
-  <p>🔥 Contest is LIVE</p>
-</div>
+  <!-- LOCKED -->
+  <div *ngIf="contest.state === 'LOCKED'" class="mb-4">
+    <p class="text-orange-400 font-medium">
+      🔒 Contest Locked
+    </p>
+    <p class="text-sm text-gray-400">
+      Contest will start in <strong>10 minutes</strong>
+    </p>
+  </div>
 
-<!-- TIMER -->
-<div *ngIf="contest.state !== 'COMPLETED'">
-  <p><strong>Countdown:</strong> {{ countdown }}</p>
-</div>
+  <!-- LIVE -->
+  <div *ngIf="contest.state === 'LIVE'" class="mb-4">
+    <p class="text-green-400 font-semibold">
+      🔥 Contest is LIVE
+    </p>
+  </div>
 
-<hr />
+  <!-- TIMER -->
+  <div *ngIf="contest.state !== 'COMPLETED'" class="mb-6">
+    <p class="text-sm text-gray-400">
+      Countdown
+    </p>
+    <p class="text-xl font-bold text-primary">
+      {{ countdown }}
+    </p>
+  </div>
 
-<!-- JOIN BUTTON -->
-<button
-  (click)="openJoinModal()"
-  [disabled]="contest.state !== 'WAITING'">
-  Join Contest
+  <!-- JOIN BUTTON -->
+  <button
+  class="btn-danger mt-4 w-full"
+  (click)="endContest()">
+  End Contest (Admin Test)
 </button>
 
-<p style="margin-top: 10px; color: red;">
-  Entry fee once deducted is non-refundable.<br />
-  This is a skill-based contest.
-</p>
 
+  <!-- WARNING -->
+  <p class="text-xs text-red-400 mt-3 text-center">
+    Entry fee once deducted is non-refundable.<br />
+    This is a skill-based contest.
+  </p>
+
+</div>
+
+<!-- JOIN CONFIRMATION MODAL -->
 <app-join-confirmation
   *ngIf="showJoinModal"
   [contest]="contest"
@@ -50,4 +78,3 @@
   (confirmJoin)="confirmJoin()"
   (cancelJoin)="cancelJoin()">
 </app-join-confirmation>
-

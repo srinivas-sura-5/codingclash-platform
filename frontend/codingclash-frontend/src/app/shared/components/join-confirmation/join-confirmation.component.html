@@ -1,35 +1,67 @@
-<div class="modal-backdrop">
-  <div class="modal">
+<!-- BACKDROP -->
+<div class="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
 
-    <h3>Confirm Contest Join</h3>
+  <!-- MODAL CARD -->
+  <div class="card max-w-md w-full">
 
-    <p><strong>Contest:</strong> {{ contest.name }}</p>
-    <p><strong>Start:</strong> {{ contest.startTime | date:'short' }}</p>
-    <p><strong>Entry Fee:</strong> ₹{{ contest.entryFee }}</p>
-    <p><strong>Wallet Balance:</strong> ₹{{ walletBalance }}</p>
+    <h3 class="text-xl font-semibold mb-4 text-center">
+      Confirm Contest Join
+    </h3>
 
-    <p *ngIf="balanceAfterJoin >= 0">
-      <strong>Balance After Join:</strong> ₹{{ balanceAfterJoin }}
-    </p>
+    <!-- DETAILS -->
+    <div class="space-y-2 text-sm text-gray-300">
+      <p>
+        <span class="text-gray-400">Contest:</span>
+        <strong>{{ contest.name }}</strong>
+      </p>
 
-    <p *ngIf="balanceAfterJoin < 0" class="error">
-      ❌ Insufficient Wallet Balance
-    </p>
+      <p>
+        <span class="text-gray-400">Start:</span>
+        {{ contest.startTime | date:'short' }}
+      </p>
 
-    <p class="warning">
+      <p>
+        <span class="text-gray-400">Entry Fee:</span>
+        ₹{{ contest.entryFee }}
+      </p>
+
+      <p>
+        <span class="text-gray-400">Wallet Balance:</span>
+        ₹{{ walletBalance }}
+      </p>
+    </div>
+
+    <!-- BALANCE AFTER JOIN -->
+    <div class="mt-4">
+      <p *ngIf="balanceAfterJoin >= 0"
+         class="text-green-400 font-medium">
+        Balance After Join: ₹{{ balanceAfterJoin }}
+      </p>
+
+      <p *ngIf="balanceAfterJoin < 0"
+         class="text-red-400 font-medium">
+        ❌ Insufficient Wallet Balance
+      </p>
+    </div>
+
+    <!-- WARNING -->
+    <p class="text-xs text-red-400 mt-4 text-center">
       Entry fee once deducted is non-refundable.<br />
       This is a skill-based contest.
     </p>
 
-    <div class="actions">
+    <!-- ACTIONS -->
+    <div class="flex gap-4 mt-6">
       <button
-        class="confirm"
+        class="btn-primary flex-1"
         [disabled]="balanceAfterJoin < 0"
         (click)="confirmJoin.emit()">
         Confirm & Join
       </button>
 
-      <button class="cancel" (click)="cancelJoin.emit()">
+      <button
+        class="btn-secondary flex-1"
+        (click)="cancelJoin.emit()">
         Cancel
       </button>
     </div>

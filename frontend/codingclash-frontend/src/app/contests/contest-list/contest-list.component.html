@@ -1,22 +1,53 @@
-<h2>Available Contests</h2>
+<div class="container-app">
 
-<div class="contest-card">
-  <h3>Beginner Contest</h3>
-  <p>Entry Fee: ₹50</p>
-  <a routerLink="/contests/1">View Details</a>
-</div>
-<h2>Available Contests</h2>
+  <h2 class="text-2xl font-semibold mb-6">
+    Available Contests
+  </h2>
 
-<div class="contest-card">
-  <h3>Beginner Coding Contest</h3>
-  <p>Entry Fee: ₹50</p>
-  <p>Participants: 6 / 10</p>
-  <button routerLink="/contests/1">View Details</button>
-</div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-<div class="contest-card">
-  <h3>Intermediate Coding Contest</h3>
-  <p>Entry Fee: ₹100</p>
-  <p>Participants: 10 / 10</p>
-  <button routerLink="/contests/2">View Details</button>
+    <!-- CONTEST CARD -->
+    <div class="card">
+      <h3 class="text-lg font-semibold mb-2">
+        Beginner Coding Contest
+      </h3>
+
+      <p class="text-sm text-gray-400">
+        Entry Fee: ₹50
+      </p>
+
+      <p class="text-sm text-gray-400">
+        Participants: 6 / 10
+      </p>
+
+      <button
+        routerLink="/contests/1"
+        class="btn-primary mt-4">
+        View Details
+      </button>
+    </div>
+
+    <!-- CONTEST CARD -->
+    <div class="card">
+      <h3 class="text-lg font-semibold mb-2">
+        Intermediate Coding Contest
+      </h3>
+
+      <p class="text-sm text-gray-400">
+        Entry Fee: ₹100
+      </p>
+
+      <p class="text-sm text-gray-400">
+        Participants: 10 / 10
+      </p>
+
+      <button
+        routerLink="/contests/2"
+        class="btn-primary mt-4">
+        View Details
+      </button>
+    </div>
+
+  </div>
+
 </div>

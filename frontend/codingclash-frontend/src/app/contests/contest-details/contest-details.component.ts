@@ -14,29 +14,32 @@ export class ContestDetailsComponent implements OnInit {
   showJoinModal = false;
 
   constructor(
-  private contestService: ContestService,
-  public walletService: WalletService
-) {}
-
+    private contestService: ContestService,
+    public walletService: WalletService
+  ) {}
 
   ngOnInit(): void {
     this.contest = this.contestService.getContest();
     this.startCountdown();
   }
 
+  // ⏱ TIMER
   startCountdown(): void {
     const interval = setInterval(() => {
       const diff = this.contest.startTime.getTime() - Date.now();
+
       if (diff <= 0) {
         clearInterval(interval);
         return;
       }
+
       const m = Math.floor((diff / 1000 / 60) % 60);
       const s = Math.floor((diff / 1000) % 60);
       this.countdown = `${m}m ${s}s`;
     }, 1000);
   }
 
+  // 🔘 JOIN FLOW
   openJoinModal(): void {
     if (this.contest.state !== 'WAITING') return;
     this.showJoinModal = true;
@@ -63,5 +66,22 @@ export class ContestDetailsComponent implements OnInit {
     this.showJoinModal = false;
 
     alert('✅ Successfully joined contest');
+  }
+
+  // 🏁 CONTEST END (PHASE 11)
+  endContest(): void {
+
+    if (this.contest.state === 'COMPLETED') return;
+
+    const { prizePool } = this.contestService.calculateContestMoney(
+      this.contest.entryFee,
+      this.contest.participants
+    );
+
+    this.contestService.distributePrizes(prizePool);
+
+    this.contest.state = 'COMPLETED';
+
+    alert('🏆 Contest completed & prizes distributed');
   }
 }

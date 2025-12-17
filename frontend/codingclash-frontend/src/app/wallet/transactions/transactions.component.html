@@ -1,21 +1,65 @@
-<h2>Wallet Transactions</h2>
+<div class="max-w-4xl mx-auto card">
 
-<table border="1" cellpadding="10">
-    <thead>
+  <h2 class="text-2xl font-semibold mb-6">
+    Wallet Transactions
+  </h2>
+
+  <!-- EMPTY STATE -->
+  <div *ngIf="transactions.length === 0"
+       class="text-center text-gray-400 py-10">
+    No transactions available
+  </div>
+
+  <!-- TABLE -->
+  <div *ngIf="transactions.length > 0" class="overflow-x-auto">
+    <table class="table-base">
+      <thead>
         <tr>
-            <th>Date</th>
-            <th>Type</th>
-            <th>Amount</th>
-            <th>Status</th>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Amount</th>
+          <th>Status</th>
         </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let tx of transactions">
-            <td>{{ tx.date | date:'short' }}</td>
-            <td>{{ tx.type }}</td>
-            <td>₹ {{ tx.amount }}</td>
-            <td>{{ tx.status }}</td>
-        </tr>
+      </thead>
 
-    </tbody>
-</table>
+      <tbody>
+        <tr *ngFor="let tx of transactions">
+          <td>{{ tx.date | date:'short' }}</td>
+
+          <td class="capitalize">
+            {{ tx.type }}
+          </td>
+
+          <td>
+            ₹ {{ tx.amount }}
+          </td>
+
+          <td>
+            <!-- STATUS BADGES -->
+            <span
+              *ngIf="tx.status === 'APPROVED'"
+              class="px-2 py-1 rounded text-xs font-medium
+                     bg-green-500/20 text-green-400">
+              Approved
+            </span>
+
+            <span
+              *ngIf="tx.status === 'PENDING'"
+              class="px-2 py-1 rounded text-xs font-medium
+                     bg-yellow-500/20 text-yellow-400">
+              Pending
+            </span>
+
+            <span
+              *ngIf="tx.status === 'REJECTED'"
+              class="px-2 py-1 rounded text-xs font-medium
+                     bg-red-500/20 text-red-400">
+              Rejected
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

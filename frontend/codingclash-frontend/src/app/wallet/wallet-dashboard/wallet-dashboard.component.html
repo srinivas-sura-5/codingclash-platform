@@ -1,11 +1,9 @@
-<h2>My Wallet</h2>
+<div class="card max-w-md mx-auto text-center">
+  <h2 class="text-xl mb-2">Wallet Balance</h2>
+  <p class="text-3xl font-bold text-primary">₹ {{ balance }}</p>
 
-<div class="wallet-card">
-  <h3>Current Balance</h3>
-  <p class="balance">₹ {{ balance }}</p>
-</div>
-
-<div class="wallet-actions">
-  <button routerLink="/wallet/add">Add Money</button>
-  <button routerLink="/wallet/transactions">View Transactions</button>
+  <div class="flex justify-center gap-4 mt-6">
+    <a routerLink="/wallet/add" class="btn-primary">Add Money</a>
+    <a routerLink="/wallet/transactions" class="btn-secondary">Transactions</a>
+  </div>
 </div>

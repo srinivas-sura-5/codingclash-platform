@@ -1,15 +1,52 @@
-<h2>Admin Dashboard</h2>
+<div class="container-app">
 
-<div class="stats">
-  <div>Total Users: 120</div>
-  <div>Total Contests: 15</div>
-  <div>Total Collection: ₹12,000</div>
-  <div>Platform Profit (30%): ₹3,600</div>
+    <h2 class="text-2xl font-semibold mb-6">Admin Dashboard</h2>
+
+    <!-- STATS CARDS -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        <div class="card text-center">
+            <p class="text-sm text-gray-400">Total Users</p>
+            <p class="text-3xl font-bold text-primary mt-1">120</p>
+        </div>
+
+        <div class="card text-center">
+            <p class="text-sm text-gray-400">Total Contests</p>
+            <p class="text-3xl font-bold mt-1">15</p>
+        </div>
+
+        <div class="card text-center">
+            <p class="text-sm text-gray-400">Total Collection</p>
+            <p class="text-3xl font-bold mt-1">₹12,000</p>
+        </div>
+
+        <div class="card text-center border border-primary">
+            <p class="text-sm text-gray-400">Platform Profit</p>
+            <p class="text-3xl font-bold text-primary">₹{{ profit }}</p>
+        </div>
+
+    </div>
+
+    <!-- ADMIN NAVIGATION -->
+    <div class="card">
+        <h3 class="text-lg font-semibold mb-4">Admin Actions</h3>
+
+        <div class="flex flex-wrap gap-4">
+            <a routerLink="/admin/contests" class="btn-primary">
+                Manage Contests
+            </a>
+
+            <a routerLink="/admin/payments" class="btn-secondary">
+                Wallet Approvals
+            </a>
+
+            <a routerLink="/admin/users" class="btn-secondary">
+                Users
+            </a>
+
+            <a routerLink="/admin/logs" class="btn-secondary">
+                System Logs
+            </a>
+        </div>
+    </div>
+
 </div>
-
-<nav>
-  <a routerLink="/admin/contests">Manage Contests</a> |
-  <a routerLink="/admin/payments">Wallet Approvals</a> |
-  <a routerLink="/admin/users">Users</a> |
-  <a routerLink="/admin/logs">Logs</a>
-</nav>

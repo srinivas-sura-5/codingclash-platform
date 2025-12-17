@@ -1,23 +1,62 @@
-<h2>Wallet Deposit Approvals</h2>
+<div class="max-w-4xl mx-auto card">
 
-<table border="1" cellpadding="10">
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Amount</th>
-      <th>Screenshot</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Sura</td>
-      <td>₹500</td>
-      <td><a href="#">View</a></td>
-      <td>
-        <button>Approve</button>
-        <button>Reject</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <h2 class="text-2xl font-semibold mb-6">
+    Wallet Deposit Approvals
+  </h2>
+
+  <!-- EMPTY STATE -->
+  <div *ngIf="pendingDeposits.length === 0"
+       class="text-center text-gray-400 py-10">
+    No pending deposit requests
+  </div>
+
+  <!-- APPROVAL TABLE -->
+  <div *ngIf="pendingDeposits.length > 0" class="overflow-x-auto">
+    <table class="table-base">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Amount</th>
+          <th>Proof</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let tx of pendingDeposits">
+          <td>
+            User
+            <!-- Later backend lo actual username vastundi -->
+          </td>
+
+          <td>
+            ₹ {{ tx.amount }}
+          </td>
+
+          <td>
+            <a
+              href="#"
+              class="text-primary hover:underline">
+              View Screenshot
+            </a>
+          </td>
+
+          <td class="flex gap-2">
+            <button
+              class="btn-primary"
+              (click)="approve(tx.id)">
+              Approve
+            </button>
+
+            <button
+              class="btn-danger"
+              disabled>
+              Reject
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
