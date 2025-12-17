@@ -1,30 +1,44 @@
-<h2>Beginner Coding Contest</h2>
+<h2>{{ contest.name }}</h2>
 
-<p><strong>Start Time:</strong> 18:00</p>
-<p><strong>Duration:</strong> 60 minutes</p>
-<p><strong>Entry Fee:</strong> ₹50</p>
-<p><strong>Prize Pool:</strong> ₹350</p>
+<p><strong>Status:</strong> {{ contest.state }}</p>
+<p><strong>Entry Fee:</strong> ₹{{ contest.entryFee }}</p>
+<p><strong>Prize Pool:</strong> ₹{{ contest.prizePool }}</p>
 
 <hr />
 
-<!-- PRE-START TIMER -->
-<div class="timer">
-  <p>Contest starts in:</p>
-  <h3>00 : 09 : 32</h3>
-</div>
-
-<!-- WAITING STATE -->
-<div class="waiting">
-  <p>Minimum 10 participants required</p>
+<!-- UPCOMING / WAITING -->
+<div *ngIf="contest.state === 'WAITING'">
+  <p>⏳ Waiting for minimum participants</p>
+  <p><strong>Rule:</strong> Minimum 10 participants required</p>
   <p>Invite friends to start contest</p>
 </div>
 
+<!-- LOCKED -->
+<div *ngIf="contest.state === 'LOCKED'">
+  <p>🔒 Contest locked</p>
+  <p>Contest will start in 10 minutes</p>
+</div>
+
+<!-- LIVE -->
+<div *ngIf="contest.state === 'LIVE'">
+  <p>🔥 Contest is LIVE</p>
+</div>
+
+<!-- TIMER -->
+<div *ngIf="contest.state !== 'COMPLETED'">
+  <p><strong>Countdown:</strong> {{ countdown }}</p>
+</div>
+
+<hr />
+
 <!-- JOIN BUTTON -->
-<button class="join-btn">
+<button
+  (click)="openJoinModal()"
+  [disabled]="contest.state !== 'WAITING'">
   Join Contest
 </button>
 
-<p class="note">
+<p style="margin-top: 10px; color: red;">
   Entry fee once deducted is non-refundable.<br />
   This is a skill-based contest.
 </p>
