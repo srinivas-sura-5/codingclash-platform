@@ -1,18 +1,13 @@
-<nav class="bg-slate-950 border-b border-border">
-  <div class="container-app flex items-center justify-between h-14">
+<!-- PUBLIC NAV -->
+<ul *ngIf="!isLoggedIn">
+  <li><a routerLink="/auth/login">Login</a></li>
+  <li><a routerLink="/auth/register">Register</a></li>
+</ul>
 
-    <!-- LOGO -->
-    <div class="text-xl font-bold text-primary">
-      CC <span class="text-white">CodingClash</span>
-    </div>
-
-    <!-- LINKS -->
-    <ul class="flex gap-6 text-sm">
-      <li><a routerLink="/contests" class="hover:text-primary">Contests</a></li>
-      <li><a routerLink="/wallet" class="hover:text-primary">Wallet</a></li>
-      <li><a routerLink="/profile" class="hover:text-primary">Profile</a></li>
-      <li><a routerLink="/auth/login" class="hover:text-primary">Login</a></li>
-    </ul>
-
-  </div>
-</nav>
+<!-- APP NAV -->
+<ul *ngIf="isLoggedIn">
+  <li><a routerLink="/app/home">Home</a></li>
+  <li><a routerLink="/app/wallet">Wallet</a></li>
+  <li><a routerLink="/app/profile">Profile</a></li>
+  <li><button (click)="logout()">Logout</button></li>
+</ul>

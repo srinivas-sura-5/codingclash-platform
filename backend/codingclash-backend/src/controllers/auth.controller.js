@@ -2,6 +2,7 @@ import User from '../models/user.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
+// REGISTER → AUTO LOGIN
 export const register = async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -18,9 +19,20 @@ export const register = async (req, res) => {
     password: hashedPassword
   });
 
-  res.status(201).json({ message: 'User registered successfully' });
+  // 🔥 AUTO LOGIN TOKEN
+  const token = jwt.sign(
+    { id: user._id, role: user.role },
+    process.env.JWT_SECRET,
+    { expiresIn: '1d' }
+  );
+
+  res.status(201).json({
+    message: 'Registered successfully',
+    token
+  });
 };
 
+// LOGIN
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -41,4 +53,12 @@ export const login = async (req, res) => {
   );
 
   res.json({ token });
+};
+
+// WHO AM I
+export const getMe = async (req, res) => {
+  res.json({
+    id: req.user.id,
+    role: req.user.role
+  });
 };

@@ -4,22 +4,64 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 import { AdminGuard } from './core/guards/admin.guard';
 
-
-
-
 const routes: Routes = [
-  { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
-  { path: 'wallet', loadChildren: () => import('./wallet/wallet.module').then(m => m.WalletModule), canActivate: [AuthGuard] },
-  { path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule), canActivate: [AuthGuard] },
-  { path: 'contests', loadChildren: () => import('./contests/contests.module').then(m => m.ContestsModule) },
-  { path: '', redirectTo: 'contests', pathMatch: 'full' },
-  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canActivate: [AdminGuard] }
-];
 
+  /* 🔓 PUBLIC LANDING */
+  {
+    path: '',
+    loadChildren: () =>
+      import('./landing/landing.module').then(m => m.LandingModule)
+  },
+
+  /* AUTH */
+  {
+    path: 'auth',
+    loadChildren: () =>
+      import('./auth/auth.module').then(m => m.AuthModule)
+  },
+
+  /* 🔐 PROTECTED USER APP */
+  {
+    path: 'app',
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'home',
+        loadChildren: () =>
+          import('./home/home.module').then(m => m.HomeModule)
+      },
+      {
+        path: 'wallet',
+        loadChildren: () =>
+          import('./wallet/wallet.module').then(m => m.WalletModule)
+      },
+      {
+        path: 'profile',
+        loadChildren: () =>
+          import('./profile/profile.module').then(m => m.ProfileModule)
+      },
+      {
+        path: 'contests',
+        loadChildren: () =>
+          import('./contests/contests.module').then(m => m.ContestsModule)
+      }
+    ]
+  },
+
+  /* 👑 ADMIN */
+  {
+    path: 'admin',
+    canActivate: [AdminGuard],
+    loadChildren: () =>
+      import('./admin/admin.module').then(m => m.AdminModule)
+  },
+
+  { path: '**', redirectTo: '' }
+];
 
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
