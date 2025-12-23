@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { UserService } from 'src/app/core/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -12,44 +11,37 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RegisterComponent {
 
   registerForm: FormGroup;
+  error = '';
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private userService: UserService,
     private router: Router
   ) {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
+      phone: ['', [
+        Validators.required,
+        Validators.pattern(/^[0-9]{10}$/)
+      ]],
       password: ['', Validators.required]
     });
   }
 
   register() {
-  console.log('REGISTER CLICKED');
+    if (this.registerForm.invalid) return;
 
-  if (this.registerForm.invalid) {
-    console.log('FORM INVALID', this.registerForm.value);
-    return;
+    this.authService.register(this.registerForm.value)
+      .subscribe({
+        next: () => {
+          this.router.navigate(['/auth/login'], {
+            queryParams: { registered: 'true' }
+          });
+        },
+        error: err => {
+          this.error = err.error?.message || 'Registration failed';
+        }
+      });
   }
-
-  console.log('FORM DATA', this.registerForm.value);
-
-  this.authService.register(this.registerForm.value)
-    .subscribe({
-      next: (res) => {
-        console.log('REGISTER SUCCESS', res);
-
-        this.authService.saveToken(res.token);
-        this.userService.loadUser();
-        this.router.navigate(['/app/home']);
-      },
-      error: (err) => {
-        console.error('REGISTER ERROR', err);
-      }
-    });
-}
-
-
 }

@@ -8,13 +8,20 @@ import { WalletService } from '../services/wallet.service';
 export class AddMoneyComponent {
 
   amount = 0;
+  loading = false;
 
   constructor(private walletService: WalletService) {}
 
-  submit(): void {
-    if (this.amount > 0) {
-      this.walletService.requestDeposit(this.amount);
-      alert('Deposit request submitted');
-    }
+  submit() {
+    if (this.amount <= 0) return;
+
+    this.loading = true;
+
+    this.walletService.deposit(this.amount)
+      .subscribe(() => {
+        alert('Deposit request sent for admin approval');
+        this.amount = 0;
+        this.loading = false;
+      });
   }
 }

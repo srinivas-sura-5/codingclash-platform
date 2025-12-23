@@ -1,27 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { ContestsRoutingModule } from './contests-routing.module';
-import { ContestListComponent } from './contest-list/contest-list.component';
+import { ContestsComponent } from './contests/contests.component';
 import { ContestDetailsComponent } from './contest-details/contest-details.component';
-import { ContestRoomComponent } from './contest-room/contest-room.component';
-import { LeaderboardComponent } from './leaderboard/leaderboard.component';
-import { SharedModule } from '../shared/shared.module';
-import { ContestResultsComponent } from './contest-results/contest-results.component';
-
+import { SharedModule } from '../shared/shared.module'; // ✅ ADD THIS
 
 @NgModule({
   declarations: [
-    ContestListComponent,
-    ContestDetailsComponent,
-    LeaderboardComponent,
-    ContestRoomComponent,
-    ContestResultsComponent
+    ContestsComponent,
+    ContestDetailsComponent
   ],
   imports: [
     CommonModule,
+    RouterModule,
     ContestsRoutingModule,
-    SharedModule   // 🔥 THIS FIXES STEP 8.4
+    SharedModule   // ✅ THIS LINE FIXES EVERYTHING
   ]
 })
-export class ContestsModule { }
+export class ContestsModule {}

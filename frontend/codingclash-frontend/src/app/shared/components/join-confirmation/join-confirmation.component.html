@@ -1,68 +1,23 @@
-<!-- BACKDROP -->
-<div class="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+<div class="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+  <div class="card w-full max-w-md p-6">
 
-  <!-- MODAL CARD -->
-  <div class="card max-w-md w-full">
+    <h3 class="text-xl font-semibold mb-4">Confirm Join</h3>
 
-    <h3 class="text-xl font-semibold mb-4 text-center">
-      Confirm Contest Join
-    </h3>
+    <p><strong>{{ contest.name }}</strong></p>
+    <p>Entry Fee: ₹{{ contest.entryFee }}</p>
+    <p>Starts: {{ contest.startTime | date:'short' }}</p>
 
-    <!-- DETAILS -->
-    <div class="space-y-2 text-sm text-gray-300">
-      <p>
-        <span class="text-gray-400">Contest:</span>
-        <strong>{{ contest.name }}</strong>
-      </p>
-
-      <p>
-        <span class="text-gray-400">Start:</span>
-        {{ contest.startTime | date:'short' }}
-      </p>
-
-      <p>
-        <span class="text-gray-400">Entry Fee:</span>
-        ₹{{ contest.entryFee }}
-      </p>
-
-      <p>
-        <span class="text-gray-400">Wallet Balance:</span>
-        ₹{{ walletBalance }}
-      </p>
-    </div>
-
-    <!-- BALANCE AFTER JOIN -->
-    <div class="mt-4">
-      <p *ngIf="balanceAfterJoin >= 0"
-         class="text-green-400 font-medium">
-        Balance After Join: ₹{{ balanceAfterJoin }}
-      </p>
-
-      <p *ngIf="balanceAfterJoin < 0"
-         class="text-red-400 font-medium">
-        ❌ Insufficient Wallet Balance
-      </p>
-    </div>
-
-    <!-- WARNING -->
-    <p class="text-xs text-red-400 mt-4 text-center">
-      Entry fee once deducted is non-refundable.<br />
-      This is a skill-based contest.
+    <p class="text-xs text-red-400 mt-3">
+      Entry fee once deducted is non-refundable.<br>
+      Skill-based contest.
     </p>
 
-    <!-- ACTIONS -->
-    <div class="flex gap-4 mt-6">
-      <button
-        class="btn-primary flex-1"
-        [disabled]="balanceAfterJoin < 0"
-        (click)="confirmJoin.emit()">
-        Confirm & Join
-      </button>
-
-      <button
-        class="btn-secondary flex-1"
-        (click)="cancelJoin.emit()">
+    <div class="flex gap-3 mt-6">
+      <button class="btn-secondary w-1/2" (click)="cancelJoin.emit()">
         Cancel
+      </button>
+      <button class="btn-primary w-1/2" (click)="confirmJoin.emit()">
+        Confirm
       </button>
     </div>
 

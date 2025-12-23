@@ -11,11 +11,12 @@ import { adminOnly } from '../middleware/admin.middleware.js';
 
 const router = express.Router();
 
-router.get('/', protect, getWallet);
+/* USER */
+router.get('/me', protect, getWallet);
 router.post('/deposit', protect, requestDeposit);
 router.get('/transactions', protect, getTransactions);
 
-// ADMIN
+/* ADMIN */
 router.post('/approve/:id', protect, adminOnly, approveDeposit);
 
 export default router;

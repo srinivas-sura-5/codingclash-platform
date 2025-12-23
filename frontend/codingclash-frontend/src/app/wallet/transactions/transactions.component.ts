@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { WalletService } from '../services/wallet.service';
-import { WalletTransaction } from '../models/wallet-transaction';
 
 @Component({
   selector: 'app-transactions',
@@ -8,11 +7,14 @@ import { WalletTransaction } from '../models/wallet-transaction';
 })
 export class TransactionsComponent implements OnInit {
 
-  transactions: WalletTransaction[] = [];
+  transactions: any[] = [];
 
   constructor(private walletService: WalletService) {}
 
   ngOnInit(): void {
-    this.transactions = this.walletService.getTransactions();
+    this.walletService.getTransactions()
+      .subscribe((txs: any[]) => {
+        this.transactions = txs;
+      });
   }
 }

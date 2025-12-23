@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { WalletService } from 'src/app/wallet/services/wallet.service';
-import { WalletTransaction } from 'src/app/wallet/models/wallet-transaction';
 
 @Component({
   selector: 'app-payments',
@@ -8,18 +7,28 @@ import { WalletTransaction } from 'src/app/wallet/models/wallet-transaction';
 })
 export class PaymentsComponent implements OnInit {
 
-  pendingDeposits: WalletTransaction[] = [];
+  pendingDeposits: any[] = [];
 
   constructor(private walletService: WalletService) {}
 
   ngOnInit(): void {
-    this.pendingDeposits = this.walletService
-      .getTransactions()
-      .filter(tx => tx.type === 'DEPOSIT' && tx.status === 'PENDING');
+    this.loadPending();
   }
 
-  approve(txId: number): void {
-    this.walletService.approveDeposit(txId);
-    this.pendingDeposits = this.pendingDeposits.filter(t => t.id !== txId);
+  loadPending() {
+    this.walletService.getTransactions()
+      .subscribe((txs: any[]) => {
+        this.pendingDeposits = txs.filter(
+          tx => tx.type === 'DEPOSIT' && tx.status === 'PENDING'
+        );
+      });
+  }
+
+  approve(txId: string) {
+    this.walletService.approveDeposit(txId)
+      .subscribe(() => {
+        alert('Deposit approved');
+        this.loadPending();
+      });
   }
 }

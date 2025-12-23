@@ -4,18 +4,17 @@
     Login to CodingClash
   </h2>
 
-  <!-- ANGULAR REACTIVE FORM -->
   <form
     [formGroup]="loginForm"
     (ngSubmit)="login()"
     class="space-y-4">
 
-    <!-- EMAIL -->
+    <!-- EMAIL OR PHONE -->
     <input
       class="input"
-      type="email"
-      placeholder="Email"
-      formControlName="email" />
+      type="text"
+      placeholder="Email or Phone"
+      formControlName="identifier" />
 
     <!-- PASSWORD -->
     <input
@@ -29,7 +28,6 @@
       {{ error }}
     </p>
 
-    <!-- BUTTON -->
     <button
       class="btn-primary w-full"
       type="submit"
@@ -40,8 +38,12 @@
 
   <p class="text-sm text-center mt-4 text-gray-400">
     Don’t have an account?
-    <a routerLink="/auth/register" class="text-primary">
-      Register
+    <a routerLink="/auth/register" class="text-primary">Register</a>
+  </p>
+
+  <p class="text-sm text-center mt-2">
+    <a routerLink="/auth/forgot-password" class="text-primary">
+      Forgot password?
     </a>
   </p>
 

@@ -1,4 +1,93 @@
-<div class="p-6 text-white">
-  <h1 class="text-2xl font-bold mb-4">Welcome to CodingClash 🚀</h1>
-  <p>This is your dashboard.</p>
+<div class="space-y-10">
+
+  <!-- 🔹 WELCOME -->
+  <div>
+    <h1 class="text-2xl font-bold text-white">
+      Welcome to CodingClash 👋
+    </h1>
+    <p class="text-gray-400 text-sm mt-1">
+      Skill-based coding competitions. No luck involved.
+    </p>
+  </div>
+
+  <!-- 🔹 STATS CARDS -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+    <div class="card">
+      <p class="text-gray-400 text-sm">Wallet Balance</p>
+      <h2 class="text-3xl font-bold text-primary mt-1">
+        ₹ {{ walletBalance }}
+      </h2>
+      <a
+        routerLink="/app/wallet"
+        class="text-xs text-primary underline mt-2 inline-block"
+      >
+        Add Money →
+      </a>
+    </div>
+
+    <div class="card">
+      <p class="text-gray-400 text-sm">Active Contests</p>
+      <h2 class="text-3xl font-bold text-white mt-1">
+        {{ stats.activeContests }}
+      </h2>
+    </div>
+
+    <div class="card">
+      <p class="text-gray-400 text-sm">Joined Contests</p>
+      <h2 class="text-3xl font-bold text-white mt-1">
+        {{ stats.joinedContests }}
+      </h2>
+    </div>
+
+  </div>
+
+  <!-- 🔹 FEATURED CONTEST -->
+  <div class="card border border-primary/30">
+
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="text-xl font-semibold text-white">
+        🚀 Featured Contest
+      </h3>
+      <span class="text-xs px-2 py-1 rounded bg-yellow-500/10 text-yellow-400">
+        Upcoming
+      </span>
+    </div>
+
+    <p class="text-lg font-medium text-white">
+      {{ featuredContest.name }}
+    </p>
+
+    <p class="text-sm text-gray-400 mt-1">
+      Entry Fee: ₹{{ featuredContest.entryFee }}
+    </p>
+
+    <p class="text-sm text-gray-400">
+      Starts in 10 minutes
+    </p>
+
+    <div class="mt-4 flex gap-3">
+      <a
+        routerLink="/app/contests"
+        class="btn-primary"
+      >
+        View Contest
+      </a>
+
+      <a
+        routerLink="/app/wallet"
+        class="btn-secondary"
+      >
+        Add Money
+      </a>
+    </div>
+
+  </div>
+
+  <!-- 🔹 NOTICE -->
+  <div class="text-xs text-gray-500 text-center border-t border-border pt-4">
+    Entry fee once deducted is non-refundable.<br />
+    CodingClash hosts skill-based contests only.
+  </div>
+
 </div>

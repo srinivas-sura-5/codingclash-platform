@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ContestService } from '../services/contest.service';
 import { Contest } from '../models/contest';
-import { WalletService } from 'src/app/wallet/services/wallet.service';
 
 @Component({
   selector: 'app-contest-details',
@@ -10,78 +10,49 @@ import { WalletService } from 'src/app/wallet/services/wallet.service';
 export class ContestDetailsComponent implements OnInit {
 
   contest!: Contest;
-  countdown = '';
-  showJoinModal = false;
 
   constructor(
-    private contestService: ContestService,
-    public walletService: WalletService
+    private route: ActivatedRoute,
+    private contestService: ContestService
   ) {}
 
   ngOnInit(): void {
-    this.contest = this.contestService.getContest();
-    this.startCountdown();
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.contest = this.contestService.getContestById(id)!;
   }
 
-  // ⏱ TIMER
-  startCountdown(): void {
-    const interval = setInterval(() => {
-      const diff = this.contest.startTime.getTime() - Date.now();
+  showJoinModal = false;
 
-      if (diff <= 0) {
-        clearInterval(interval);
-        return;
-      }
+openJoinModal(): void {
+  if (this.contest.state !== 'WAITING') return;
+  this.showJoinModal = true;
+}
 
-      const m = Math.floor((diff / 1000 / 60) % 60);
-      const s = Math.floor((diff / 1000) % 60);
-      this.countdown = `${m}m ${s}s`;
-    }, 1000);
+cancelJoin(): void {
+  this.showJoinModal = false;
+}
+
+confirmJoin(): void {
+
+  // TEMP: simulate wallet balance
+  const walletBalance = 100; // later API
+
+  if (walletBalance < this.contest.entryFee) {
+    alert('❌ Insufficient Wallet Balance');
+    return;
   }
 
-  // 🔘 JOIN FLOW
-  openJoinModal(): void {
-    if (this.contest.state !== 'WAITING') return;
-    this.showJoinModal = true;
+  // simulate join
+  this.contest.participants += 1;
+
+  if (this.contest.participants >= this.contest.minParticipants) {
+    this.contest.state = 'LOCKED';
   }
 
-  cancelJoin(): void {
-    this.showJoinModal = false;
-  }
+  this.showJoinModal = false;
 
-  confirmJoin(): void {
+  alert('✅ Successfully joined contest');
+}
 
-    const success = this.walletService.deduct(
-      this.contest.entryFee,
-      `Joined contest: ${this.contest.name}`
-    );
 
-    if (!success) {
-      alert('❌ Insufficient Wallet Balance');
-      return;
-    }
-
-    this.contest.participants += 1;
-    this.contestService.updateState();
-    this.showJoinModal = false;
-
-    alert('✅ Successfully joined contest');
-  }
-
-  // 🏁 CONTEST END (PHASE 11)
-  endContest(): void {
-
-    if (this.contest.state === 'COMPLETED') return;
-
-    const { prizePool } = this.contestService.calculateContestMoney(
-      this.contest.entryFee,
-      this.contest.participants
-    );
-
-    this.contestService.distributePrizes(prizePool);
-
-    this.contest.state = 'COMPLETED';
-
-    alert('🏆 Contest completed & prizes distributed');
-  }
 }

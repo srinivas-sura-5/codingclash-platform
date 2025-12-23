@@ -1,87 +1,30 @@
-<div class="card max-w-2xl mx-auto">
+<div class="max-w-3xl mx-auto card p-6">
+  <h2 class="text-2xl font-bold mb-4">{{ contest.name }}</h2>
 
-  <!-- HEADER -->
-  <h2 class="text-2xl font-semibold mb-4">
-    {{ contest.name }}
-  </h2>
+  <p>Status: <strong>{{ contest.state }}</strong></p>
+  <p>Entry Fee: ₹{{ contest.entryFee }}</p>
+  <p>Participants: {{ contest.participants }} / {{ contest.minParticipants }}</p>
 
-  <!-- BASIC INFO -->
-  <div class="grid grid-cols-2 gap-4 text-sm text-gray-400 mb-4">
-    <p><strong>Status:</strong> {{ contest.state }}</p>
-    <p><strong>Entry Fee:</strong> ₹{{ contest.entryFee }}</p>
-    <p><strong>Prize Pool:</strong> ₹{{ contest.prizePool }}</p>
-  </div>
-
-  <hr class="border-border my-4" />
-
-  <!-- UPCOMING / WAITING -->
-  <div *ngIf="contest.state === 'WAITING'" class="mb-4">
-    <p class="text-yellow-400 font-medium">
-      ⏳ Waiting for minimum participants
-    </p>
-    <p class="text-sm text-gray-400 mt-1">
-      Minimum <strong>10 participants</strong> required
-    </p>
-    <p class="text-sm text-gray-400">
-      Invite friends to start the contest
-    </p>
-  </div>
-
-  <!-- LOCKED -->
-  <div *ngIf="contest.state === 'LOCKED'" class="mb-4">
-    <p class="text-orange-400 font-medium">
-      🔒 Contest Locked
-    </p>
-    <p class="text-sm text-gray-400">
-      Contest will start in <strong>10 minutes</strong>
-    </p>
-  </div>
-
-  <!-- LIVE -->
-  <div *ngIf="contest.state === 'LIVE'" class="mb-4">
-    <p class="text-green-400 font-semibold">
-      🔥 Contest is LIVE
-    </p>
-  </div>
-
-  <!-- TIMER -->
-  <div *ngIf="contest.state !== 'COMPLETED'" class="mb-6">
-    <p class="text-sm text-gray-400">
-      Countdown
-    </p>
-    <p class="text-xl font-bold text-primary">
-      {{ countdown }}
-    </p>
-  </div>
-
-  <!-- JOIN BUTTON -->
-  <button
-  class="btn-danger mt-4 w-full"
-  (click)="endContest()">
-  End Contest (Admin Test)
-</button>
-
-
-  <!-- WARNING -->
-  <p class="text-xs text-red-400 mt-3 text-center">
-    Entry fee once deducted is non-refundable.<br />
-    This is a skill-based contest.
+  <p class="mt-4 text-sm text-red-400">
+    Skill-based contest. No refund after joining.
   </p>
+
+  <button
+  class="btn-primary mt-6 w-full"
+  (click)="openJoinModal()"
+  [disabled]="contest.state !== 'WAITING'">
+
+  Join Contest – ₹{{ contest.entryFee }}
+</button>
 
 </div>
 
-<!-- JOIN CONFIRMATION MODAL -->
 <app-join-confirmation
   *ngIf="showJoinModal"
   [contest]="contest"
-  [walletBalance]="walletService.getBalance()"
   (confirmJoin)="confirmJoin()"
   (cancelJoin)="cancelJoin()">
 </app-join-confirmation>
 
-<a *ngIf="contest.state === 'COMPLETED'"
-   routerLink="/contests/1/results"
-   class="btn-primary mt-4 block text-center">
-  View Results
-</a>
+
 

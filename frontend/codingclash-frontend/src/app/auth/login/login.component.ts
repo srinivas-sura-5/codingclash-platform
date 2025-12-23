@@ -22,15 +22,14 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      identifier: ['', Validators.required], // email OR phone
       password: ['', Validators.required]
     });
   }
 
   ngOnInit(): void {
-    // 🔥 Already logged-in users should not see login page
     if (this.authService.isLoggedIn()) {
-      this.router.navigate(['/home']);
+      this.router.navigate(['/app/home']);
     }
   }
 
@@ -44,11 +43,11 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: res => {
           this.authService.saveToken(res.token);
-          this.userService.loadUser(); // REAL USER CONTEXT
+          this.userService.loadUser();
           this.router.navigate(['/app/home']);
         },
-        error: err => {
-          this.error = 'Invalid email or password';
+        error: () => {
+          this.error = 'Invalid credentials';
           this.loading = false;
         }
       });

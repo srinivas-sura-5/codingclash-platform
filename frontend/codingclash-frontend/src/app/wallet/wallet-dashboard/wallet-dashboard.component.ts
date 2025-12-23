@@ -12,6 +12,13 @@ export class WalletDashboardComponent implements OnInit {
   constructor(private walletService: WalletService) {}
 
   ngOnInit(): void {
-    this.balance = this.walletService.getBalance();
+    // 🔒 SAFE: backend not ready → fallback
+    this.walletService.wallet$.subscribe(wallet => {
+      this.balance = wallet?.balance ?? 0;
+    });
+  }
+
+  comingSoon() {
+    alert('⚠️ Wallet recharge will be enabled soon.');
   }
 }

@@ -1,6 +1,6 @@
 import Contest from '../models/Contest.js';
 import Result from '../models/Result.js';
-import Wallet from '../models/wallet.js';
+import Wallet from '../models/Wallet.js';
 import WalletTransaction from '../models/WalletTransaction.js';
 
 // ADMIN → COMPLETE CONTEST

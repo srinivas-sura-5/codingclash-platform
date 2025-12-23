@@ -1,9 +1,46 @@
-<div class="card max-w-md mx-auto text-center">
-  <h2 class="text-xl mb-2">Wallet Balance</h2>
-  <p class="text-3xl font-bold text-primary">₹ {{ balance }}</p>
+<div class="max-w-xl mx-auto space-y-8">
 
-  <div class="flex justify-center gap-4 mt-6">
-    <a routerLink="/wallet/add" class="btn-primary">Add Money</a>
-    <a routerLink="/wallet/transactions" class="btn-secondary">Transactions</a>
+  <!-- 💰 BALANCE -->
+  <div class="card text-center">
+    <p class="text-gray-400 text-sm">Wallet Balance</p>
+    <h1 class="text-4xl font-bold text-primary mt-2">
+      ₹ {{ balance }}
+    </h1>
   </div>
+
+  <!-- ➕ ADD MONEY (DISABLED) -->
+  <div class="card">
+    <h3 class="text-lg font-semibold text-white mb-2">
+      Add Money
+    </h3>
+
+    <p class="text-sm text-gray-400 mb-4">
+      Wallet recharge will be enabled soon.
+    </p>
+
+    <button
+      disabled
+      class="w-full opacity-50 cursor-not-allowed btn-primary"
+    >
+      Add Money (Coming Soon)
+    </button>
+  </div>
+
+  <!-- 📜 TRANSACTIONS -->
+  <div class="card">
+    <h3 class="text-lg font-semibold text-white mb-2">
+      Transactions
+    </h3>
+
+    <div class="text-center text-gray-500 text-sm py-6">
+      No transactions yet.
+    </div>
+  </div>
+
+  <!-- ⚠️ NOTICE -->
+  <div class="text-xs text-gray-500 text-center border-t border-border pt-4">
+    Wallet system is under setup.<br />
+    Please check back soon.
+  </div>
+
 </div>

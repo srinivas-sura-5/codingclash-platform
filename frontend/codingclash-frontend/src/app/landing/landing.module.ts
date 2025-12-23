@@ -1,12 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-
+import { LandingRoutingModule } from './landing-routing.module';
+import { LandingComponent } from './landing/landing.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    LandingComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    LandingRoutingModule,
+    SharedModule   // 🔥 navbar-public & footer
   ]
 })
-export class LandingModule { }
+export class LandingModule {}

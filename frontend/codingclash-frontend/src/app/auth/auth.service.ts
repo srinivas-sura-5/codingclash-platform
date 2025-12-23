@@ -2,26 +2,40 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
 
   constructor(private http: HttpClient) {}
 
   login(data: any) {
-  return this.http.post<any>(
-    'http://localhost:5000/api/auth/login',
-    data
-  );
-}
+    return this.http.post<any>(
+      `${environment.apiUrl}/auth/login`,
+      data
+    );
+  }
 
-register(data: any) {
-  return this.http.post<any>(
-    'http://localhost:5000/api/auth/register',
-    data
-  );
-}
+  register(data: any) {
+    return this.http.post<any>(
+      `${environment.apiUrl}/auth/register`,
+      data
+    );
+  }
 
+  forgotPassword(data: any) {
+    return this.http.post(
+      `${environment.apiUrl}/auth/forgot-password`,
+      data
+    );
+  }
 
+  resetPassword(data: any) {
+    return this.http.post(
+      `${environment.apiUrl}/auth/reset-password`,
+      data
+    );
+  }
 
   saveToken(token: string) {
     localStorage.setItem('token', token);
@@ -31,12 +45,11 @@ register(data: any) {
     return localStorage.getItem('token');
   }
 
+  isLoggedIn(): boolean {
+    return !!this.getToken();
+  }
+
   logout() {
     localStorage.clear();
   }
-
-  isLoggedIn(): boolean {
-  return !!localStorage.getItem('token');
-}
-
 }

@@ -1,5 +1,29 @@
-<footer class="border-t border-border bg-slate-950 mt-10">
-  <div class="container-app text-center py-4 text-sm text-gray-400">
-    © 2025 CodingClash • Skill-Based Coding Contests
+<footer class="bg-slate-950 border-t border-slate-800 mt-16">
+  <div class="container mx-auto px-6 py-10 text-center text-sm text-gray-400">
+
+    <p class="mb-3 font-semibold text-white">
+      CodingClash
+    </p>
+
+    <p class="mb-2">
+      Skill-based coding competition platform.
+    </p>
+
+    <p class="mb-4 text-xs">
+      This platform hosts skill-based coding contests only.<br />
+      No gambling or chance-based games involved.
+    </p>
+
+    <div class="flex justify-center gap-6 text-xs mb-4">
+      <a routerLink="/privacy-policy" class="hover:text-white">Privacy Policy</a>
+      <a routerLink="/terms" class="hover:text-white">Terms</a>
+      <a routerLink="/refund-policy" class="hover:text-white">Refund Policy</a>
+      <a routerLink="/contact" class="hover:text-white">Contact</a>
+    </div>
+
+    <p class="text-xs">
+      © {{ year }} CodingClash. All rights reserved.
+    </p>
+
   </div>
 </footer>
